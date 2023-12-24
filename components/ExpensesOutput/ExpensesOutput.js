@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
+import { GlobalStyles } from "../../constants/styles";
 
 import ExpensesSummary from "./ExpensesSummary";
 import ExpensesList from "./ExpensesList";
-import { GlobalStyles } from "../../constants/styles";
+
 
 // const DUMMY_EXPENSES = [
 //   {
