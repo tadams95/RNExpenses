@@ -1,25 +1,51 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 import Button from "../components/UI/Button";
 import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
+import { ExpensesContext } from "../store/expenses-context";
 
 function ManageExpense({ route, navigation }) {
+  const expensesCtx = useContext(ExpensesContext);
+
   const editedExpenseId = route.params?.expenseId;
   const isEditing = !!editedExpenseId;
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: isEditing ? "Edit Expense" : "Add Expense",
+      title: isEditing ? 'Edit Expense' : 'Add Expense',
     });
   }, [navigation, isEditing]);
 
-  function deleteExpenseHandler() {}
+  function deleteExpenseHandler() {
+    expensesCtx.deleteExpense(editedExpenseId);
+    navigation.goBack();
+  }
 
-  function cancelHandler() {}
+  function cancelHandler() {
+    navigation.goBack();
+  }
 
-  function confirmHandler() {}
+  function confirmHandler() {
+    if (isEditing) {
+      expensesCtx.updateExpense(
+        editedExpenseId,
+        {
+          description: 'Test!!!!',
+          amount: 29.99,
+          date: new Date('2023-12-20'),
+        }
+      );
+    } else {
+      expensesCtx.addExpense({
+        description: 'Test',
+        amount: 19.99,
+        date: new Date('2023-12-19'),
+      });
+    }
+    navigation.goBack();
+  }
 
   return (
     <View style={styles.container}>
@@ -28,7 +54,7 @@ function ManageExpense({ route, navigation }) {
           Cancel
         </Button>
         <Button style={styles.button} onPress={confirmHandler}>
-          {isEditing ? "Update" : "Add"}
+          {isEditing ? 'Update' : 'Add'}
         </Button>
       </View>
       {isEditing && (
@@ -51,7 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: GlobalStyles.colors.primary0,
+    backgroundColor: GlobalStyles.colors.primary7,
   },
   buttons: {
     flexDirection: "row",
@@ -66,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingTop: 8,
     borderTopWidth: 2,
-    borderTopColor: GlobalStyles.colors.primary1,
+    borderTopColor: GlobalStyles.colors.primary2,
     alignItems: "center",
   },
 });
