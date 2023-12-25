@@ -23,11 +23,12 @@ export const GlobalStyles = {
     error1: "#BA2525",
     error2: "#A61B1B",
     error3: "#911111",
+    error4: "#FACDCD",
     accent1: "#653CAD",
     accent2: "#51279B",
     accent3: "#421987",
     yellow1: "#E9B949",
     yellow2: "#C99A2E",
-    yellow3: "#A27C1A"
+    yellow3: "#A27C1A",
   },
 };
